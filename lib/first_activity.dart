@@ -180,11 +180,11 @@ class First_State extends State<FirstActivity> {
               Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-                  child: GestureDetector(
+                  child: FlatButton(
                       child: Container(
                           padding: EdgeInsets.all(8.0),
                           child: Text('See more')),
-                      onTap: () {
+                      onPressed: () {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
                             print(subdata.listPcr[0].count);
