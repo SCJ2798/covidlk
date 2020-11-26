@@ -1,4 +1,4 @@
-# covid
+# covidLK
 
 A new Flutter project.
 
