@@ -28,6 +28,10 @@ class _State extends State<PcrView> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/img/lanka.png"),
+                  fit: BoxFit.cover)),
           padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
@@ -51,7 +55,10 @@ class _State extends State<PcrView> {
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
                       "PCR Test",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.teal.shade900,
+                      ),
                     ),
                   ),
                 ],

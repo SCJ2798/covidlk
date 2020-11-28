@@ -31,42 +31,46 @@ class _HospitalSituState extends State<HospitalSitu> {
     ];
     return Scaffold(
       body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/img/lanka.png"),
+                  fit: BoxFit.cover)),
           child: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.06,
-          ),
-          Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  child: Icon(Icons.arrow_back),
-                  onTap: () {
-                    Navigator.pop(context);
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.06,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      child: Icon(Icons.arrow_back),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Hospital's Situation.",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.85,
+                child: ListView.builder(
+                  itemCount: subdata.listHospitalSitu.length,
+                  itemBuilder: (context, index) {
+                    return hospitalInfoCard(subdata.listHospitalSitu[index]);
                   },
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Hospital's Situation.",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
+              )
             ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.85,
-            child: ListView.builder(
-              itemCount: subdata.listHospitalSitu.length,
-              itemBuilder: (context, index) {
-                return hospitalInfoCard(subdata.listHospitalSitu[index]);
-              },
-            ),
-          )
-        ],
-      )),
+          )),
     );
   }
 

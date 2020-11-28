@@ -38,8 +38,7 @@ class First_State extends State<FirstActivity> {
               borderRadius: BorderRadius.circular(24.0),
               color: Colors.white,
             ),
-            // padding: EdgeInsets.symmetric(vertical: 8.0),
-            // color: Colors.white,
+            margin: EdgeInsets.symmetric(vertical: 0.0),
             child: ToggleButtons(
                 borderWidth: 0.0,
                 color: Colors.black,
@@ -86,17 +85,8 @@ class First_State extends State<FirstActivity> {
                 },
                 isSelected: isSelected),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Last Updated:", style: TextStyle(fontSize: 8.0)),
-                SizedBox(width: 4.0),
-                Text(subdata.last_update, style: TextStyle(fontSize: 8.0))
-              ],
-            ),
+          SizedBox(
+            height: 32.0,
           ),
           Wrap(
               alignment: WrapAlignment.center,
@@ -128,7 +118,65 @@ class First_State extends State<FirstActivity> {
                     name: 'Recovers',
                     icondata: Icons.hotel),
               ]),
-          SizedBox(height: 24.0),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24.0), color: Colors.white),
+            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Text(
+                    "Last Updated:",
+                    style: TextStyle(fontSize: 10.0),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(
+                            Icons.date_range_outlined,
+                            size: 16.0,
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Text(subdata.last_update.split(" ")[0],
+                              style: TextStyle(fontSize: 14.0))
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(
+                            Icons.access_time_outlined,
+                            size: 16.0,
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Text(subdata.last_update.split(" ")[1],
+                              style: TextStyle(fontSize: 14.0))
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -168,7 +216,7 @@ class First_State extends State<FirstActivity> {
                             LineChartBarData(
                               spots: subdata.testData.chartSpot,
                               belowBarData: BarAreaData(show: false),
-                              colors: [Colors.green],
+                              colors: [Colors.teal.shade700],
                               barWidth: 2.0,
                               isCurved: true,
                             )
@@ -321,6 +369,7 @@ class ViewCard extends StatelessWidget {
   IconData icondata;
   String count;
   String name;
+  Color color;
 
   ViewCard({this.count, this.name, this.icondata});
 
@@ -359,7 +408,11 @@ class ViewCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 4.0),
-                  Text(name, style: TextStyle(fontSize: 14.0))
+                  Text(name,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.teal.shade900,
+                      ))
                 ],
               ),
               SizedBox(
@@ -377,13 +430,19 @@ class ViewCard extends StatelessWidget {
                             begin: 0.0,
                             end: double.parse(count),
                             duration: Duration(seconds: 2),
-                            style: TextStyle(fontSize: 28),
+                            style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.teal.shade900,
+                            ),
                           )
                         ],
                       ))),
               Text(
                 "peoples",
-                style: TextStyle(fontSize: 8.0),
+                style: TextStyle(
+                  fontSize: 8.0,
+                  color: Colors.teal.shade900,
+                ),
               )
             ]));
   }

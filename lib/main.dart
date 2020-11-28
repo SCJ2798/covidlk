@@ -60,7 +60,7 @@ class _State extends State<HomeState> {
                           height: 500,
                           padding: EdgeInsets.all(8.0),
                           width: MediaQuery.of(context).size.width,
-                          color: Color(0xff00363a),
+                          color: Colors.teal.shade700,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(

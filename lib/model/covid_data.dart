@@ -111,7 +111,7 @@ class SubData {
       bargroup.add(BarChartGroupData(x: int.parse(key.toString()), barRods: [
         BarChartRodData(
             y: double.parse(valMap['count'].toString()),
-            colors: [Colors.green.withOpacity(0.75)],
+            colors: [Colors.teal.shade800.withOpacity(0.75)],
             width: 14.0)
       ]));
 
@@ -126,7 +126,7 @@ class SubData {
           .add(BarChartGroupData(x: int.parse(key.toString()), barRods: [
         BarChartRodData(
           y: double.parse(valMap['cumulative_total'].toString()),
-          colors: [Colors.green.withOpacity(0.75)],
+          colors: [Colors.teal.shade800.withOpacity(0.75)],
           width: 12.0,
         ),
       ]));
