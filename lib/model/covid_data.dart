@@ -99,7 +99,7 @@ class SubData {
 
     // - will be remove
 
-    print(pcrTestData);
+    // print(pcrTestData);
     // print(hospitalSituData);
 
     barChat.asMap().forEach((key, value) {
@@ -117,7 +117,6 @@ class SubData {
 
       List<String> tDate = valMap['date'].toString().split('-');
       dt.add(tDate[1] + "/" + tDate[2]);
-      print(tDate[1] + "/" + tDate[2]);
     });
 
     hospitalData.asMap().forEach((key, value) {

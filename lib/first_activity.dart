@@ -29,240 +29,249 @@ class First_State extends State<FirstActivity> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: ToggleButtons(
-              borderWidth: 0.0,
-              color: Colors.black,
-              selectedColor: Colors.white,
-              fillColor: Colors.green.withOpacity(0.9),
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24.0),
+              color: Colors.white,
+            ),
+            // padding: EdgeInsets.symmetric(vertical: 8.0),
+            // color: Colors.white,
+            child: ToggleButtons(
+                borderWidth: 0.0,
+                color: Colors.black,
+                selectedColor: Colors.white,
+                fillColor: Colors.teal.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(24.0),
+                children: [
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.home, size: 16.0),
+                          SizedBox(width: 2.0),
+                          Text('Local')
+                        ]),
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.language, size: 16.0),
+                          SizedBox(width: 2.0),
+                          Text('Global')
+                        ]),
+                  ),
+                ],
+                onPressed: (int index) {
+                  print(index);
+                  setState(() {
+                    if (index == 0) {
+                      isSelected = [true, false];
+                      cvData = CvData.forLocal(subdata);
+                    } else {
+                      isSelected = [false, true];
+                      cvData = CvData.forGobal(subdata);
+                    }
+                  });
+                },
+                isSelected: isSelected),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Last Updated:", style: TextStyle(fontSize: 8.0)),
+                SizedBox(width: 4.0),
+                Text(subdata.last_update, style: TextStyle(fontSize: 8.0))
+              ],
+            ),
+          ),
+          Wrap(
+              alignment: WrapAlignment.center,
+              runSpacing: 8,
+              spacing: 8,
+              children: [
+                ViewCard(
+                    count: cvData.newcase,
+                    name: 'New Cases',
+                    icondata: Icons.airline_seat_flat),
+                ViewCard(
+                    count: cvData.newdeath,
+                    name: 'New Deaths',
+                    icondata: Icons.hotel),
+                ViewCard(
+                    count: cvData.active,
+                    name: 'Active Cases',
+                    icondata: Icons.hotel),
+                ViewCard(
+                    count: cvData.deaths,
+                    name: 'Deaths',
+                    icondata: Icons.hotel),
+                ViewCard(
+                    count: cvData.totalcase,
+                    name: 'Total Cases',
+                    icondata: Icons.hotel),
+                ViewCard(
+                    count: cvData.recovery,
+                    name: 'Recovers',
+                    icondata: Icons.hotel),
+              ]),
+          SizedBox(height: 24.0),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      offset: Offset(0, 3))
+                ]),
+            child: Column(
               children: [
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 12.0),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(Icons.home, size: 16.0),
-                        SizedBox(width: 4.0),
-                        Text('Local')
-                      ]),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.biotech_outlined),
+                      Text("PCR Tests"),
+                    ],
+                  ),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(Icons.language, size: 16.0),
-                        SizedBox(width: 4.0),
-                        Text('Global')
-                      ]),
+                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+                  child: AspectRatio(
+                      aspectRatio: 1.8,
+                      child: LineChart(LineChartData(
+                          gridData: FlGridData(
+                              show: true,
+                              drawVerticalLine: true,
+                              drawHorizontalLine: false),
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: subdata.testData.chartSpot,
+                              belowBarData: BarAreaData(show: false),
+                              colors: [Colors.green],
+                              barWidth: 2.0,
+                              isCurved: true,
+                            )
+                          ],
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          titlesData: FlTitlesData(
+                              leftTitles: SideTitles(showTitles: false),
+                              bottomTitles: SideTitles(
+                                showTitles: true,
+                                margin: 32.0,
+                                getTitles: getTestDate,
+                                getTextStyles: getTextSty,
+                              ))))),
                 ),
+                Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                    child: FlatButton(
+                        child: Container(
+                            padding: EdgeInsets.all(4.0),
+                            child: Text('See more')),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              print(subdata.listPcr[0].count);
+                              return PcrView(subData: subdata);
+                            },
+                          ));
+                        }))
               ],
-              onPressed: (int index) {
-                print(index);
-                setState(() {
-                  if (index == 0) {
-                    isSelected = [true, false];
-                    cvData = CvData.forLocal(subdata);
-                  } else {
-                    isSelected = [false, true];
-                    cvData = CvData.forGobal(subdata);
-                  }
-                });
-              },
-              isSelected: isSelected),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("Last Updated:", style: TextStyle(fontSize: 8.0)),
-              SizedBox(width: 4.0),
-              Text(subdata.last_update, style: TextStyle(fontSize: 8.0))
-            ],
+            ),
           ),
-        ),
-        Wrap(
-            alignment: WrapAlignment.center,
-            runSpacing: 8,
-            spacing: 8,
-            children: [
-              ViewCard(
-                  count: cvData.newcase,
-                  name: 'New Cases',
-                  icondata: Icons.airline_seat_flat),
-              ViewCard(
-                  count: cvData.newdeath,
-                  name: 'New Deaths',
-                  icondata: Icons.hotel),
-              ViewCard(
-                  count: cvData.active,
-                  name: 'Active Cases',
-                  icondata: Icons.hotel),
-              ViewCard(
-                  count: cvData.deaths, name: 'Deaths', icondata: Icons.hotel),
-              ViewCard(
-                  count: cvData.totalcase,
-                  name: 'Total Cases',
-                  icondata: Icons.hotel),
-              ViewCard(
-                  count: cvData.recovery,
-                  name: 'Recovers',
-                  icondata: Icons.hotel),
-            ]),
-        SizedBox(height: 24.0),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10.0,
-                    offset: Offset(0, 3))
-              ]),
-          child: Column(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.biotech_outlined),
-                    Text("PCR Tests"),
-                  ],
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      offset: Offset(0, 3))
+                ]),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.local_hospital_outlined),
+                      SizedBox(width: 12.0),
+                      Text("Hospital's Situation"),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
-                child: AspectRatio(
-                    aspectRatio: 1.8,
-                    child: LineChart(LineChartData(
-                        gridData: FlGridData(
-                            show: true,
-                            drawVerticalLine: true,
-                            drawHorizontalLine: false),
-                        lineBarsData: [
-                          LineChartBarData(
-                            spots: subdata.testData.chartSpot,
-                            belowBarData: BarAreaData(show: false),
-                            colors: [Colors.green],
-                            barWidth: 2.0,
-                            isCurved: true,
-                          )
-                        ],
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        titlesData: FlTitlesData(
-                            leftTitles: SideTitles(showTitles: false),
-                            bottomTitles: SideTitles(
-                              showTitles: true,
-                              margin: 32.0,
-                              getTitles: getTestDate,
-                              getTextStyles: getTextSty,
-                            ))))),
-              ),
-              Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-                  child: FlatButton(
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: Container(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('See more')),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            print(subdata.listPcr[0].count);
-                            return PcrView(subData: subdata);
-                          },
-                        ));
-                      }))
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10.0,
-                    offset: Offset(0, 3))
-              ]),
-          child: Column(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.local_hospital_outlined),
-                    SizedBox(width: 12.0),
-                    Text("Hospital's Situation"),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.75,
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Container(
-                      child: AspectRatio(
-                          aspectRatio: 4.6,
-                          child: BarChart(BarChartData(
-                              barGroups: subdata.hospitalData.barGroupData,
-                              borderData: FlBorderData(
-                                show: false,
-                              ),
-                              titlesData: FlTitlesData(
-                                  leftTitles: SideTitles(showTitles: false),
-                                  bottomTitles: SideTitles(
-                                    showTitles: true,
-                                    margin: 16.0,
-                                    getTextStyles: getTextSty,
-                                  ))))),
+                        child: AspectRatio(
+                            aspectRatio: 4.6,
+                            child: BarChart(BarChartData(
+                                barGroups: subdata.hospitalData.barGroupData,
+                                borderData: FlBorderData(
+                                  show: false,
+                                ),
+                                titlesData: FlTitlesData(
+                                    leftTitles: SideTitles(showTitles: false),
+                                    bottomTitles: SideTitles(
+                                      showTitles: true,
+                                      margin: 16.0,
+                                      getTextStyles: getTextSty,
+                                    ))))),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-                  child: GestureDetector(
-                      child: Text('See More'),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return HospitalSitu();
-                        }));
-                      }))
-            ],
-          ),
-        )
-      ],
+                Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                    child: FlatButton(
+                        child: Text('See More'),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return HospitalSitu(subData: subdata);
+                          }));
+                        }))
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -341,12 +350,12 @@ class ViewCard extends StatelessWidget {
                     padding: EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.green.withOpacity(0.2)),
+                        color: Colors.teal.withOpacity(0.2)),
                     child: Container(
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.green, width: 1.0),
-                          color: Colors.green.withOpacity(0.9)),
+                          border: Border.all(color: Colors.teal, width: 1.0),
+                          color: Colors.teal.withOpacity(0.9)),
                     ),
                   ),
                   SizedBox(width: 4.0),

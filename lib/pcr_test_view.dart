@@ -20,10 +20,6 @@ class _State extends State<PcrView> {
 
   _State({this.subdata});
 
-  List<String> listText = ["A", "SDF", "SJJS", "A"];
-  List<String> filterList = ["week", "month", "All"];
-  List<PcrTest> listPcrTest = [];
-
   @override
   void initState() {}
 
