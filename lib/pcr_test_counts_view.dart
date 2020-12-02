@@ -1,4 +1,5 @@
 import 'package:countup/countup.dart';
+import 'package:covid/config/ColorConfig.dart';
 import 'package:covid/model/covid_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -42,12 +43,12 @@ class _PcrTestCountViewState extends State<PcrTestCountView> {
                     padding: EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        color: Colors.green.withOpacity(0.2)),
+                        color: kClipColor.withOpacity(0.1)),
                     child: Container(
                       decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(color: Colors.green, width: 1.0),
-                          color: Colors.green.withOpacity(0.0)),
+                        shape: BoxShape.rectangle,
+                        color: kClipColor,
+                      ),
                     ),
                   ),
                   SizedBox(width: 12.0),
@@ -55,7 +56,10 @@ class _PcrTestCountViewState extends State<PcrTestCountView> {
                     padding: EdgeInsets.all(8.0),
                     child: Text(
                       "PCR Test Counts",
-                      style: TextStyle(fontSize: 12.0),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: kTxtColor,
+                      ),
                     ),
                   ),
                 ],
@@ -63,11 +67,18 @@ class _PcrTestCountViewState extends State<PcrTestCountView> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 4.0),
                 child: DropdownButton(
-                    hint: Text(selected_text),
+                    hint: Text(
+                      selected_text,
+                      style: TextStyle(color: kTxtColor),
+                    ),
                     icon: Icon(Icons.arrow_drop_down),
                     items: filterList.map((e) {
                       return DropdownMenuItem(
-                          child: Text(e.toString()), value: e.toString());
+                          child: Text(
+                            e.toString(),
+                            style: TextStyle(color: kTxtColor),
+                          ),
+                          value: e.toString());
                     }).toList(),
                     onChanged: (v) {
                       print(v);
@@ -111,7 +122,6 @@ class _PcrTestCountViewState extends State<PcrTestCountView> {
         margin: EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
         padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
         decoration: BoxDecoration(
-          color: Colors.white,
           border: Border(
               bottom: BorderSide(
                   width: 1.0,
@@ -123,8 +133,9 @@ class _PcrTestCountViewState extends State<PcrTestCountView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.assignment_ind,
-                size: 16,
+                Icons.biotech_rounded,
+                size: 20,
+                color: kIconColor,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -132,14 +143,17 @@ class _PcrTestCountViewState extends State<PcrTestCountView> {
                   begin: 0,
                   end: double.parse(pcr.count),
                   duration: Duration(seconds: 1),
-                  style: TextStyle(fontSize: 32.0),
+                  style: TextStyle(
+                      fontSize: 32.0,
+                      color: kTxtColor,
+                      fontWeight: FontWeight.w400),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: Text(
                   pcr.date,
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 12, color: kTxtColor),
                 ),
               ),
             ]));

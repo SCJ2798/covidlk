@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:covid/config/ColorConfig.dart';
 
 import 'model/covid_data.dart';
 
@@ -50,12 +51,12 @@ class _PcrTestGraphState extends State<PcrTestGraph> {
                     padding: EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        color: Colors.green.withOpacity(0.2)),
+                        color: kClipColor.withOpacity(0.2)),
                     child: Container(
                       decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(color: Colors.green, width: 1.0),
-                          color: Colors.green.withOpacity(0.0)),
+                        shape: BoxShape.rectangle,
+                        color: kClipColor,
+                      ),
                     ),
                   ),
                   SizedBox(width: 12.0),
@@ -63,7 +64,10 @@ class _PcrTestGraphState extends State<PcrTestGraph> {
                     padding: const EdgeInsets.symmetric(vertical: 0.0),
                     child: Text(
                       "PCR Test / Day",
-                      style: TextStyle(fontSize: 12.0),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: kTxtColor,
+                      ),
                     ),
                   ),
                 ],
@@ -71,11 +75,18 @@ class _PcrTestGraphState extends State<PcrTestGraph> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 4.0),
                 child: DropdownButton(
-                    hint: Text(selected_text),
+                    hint: Text(
+                      selected_text,
+                      style: TextStyle(color: kTxtColor),
+                    ),
                     icon: Icon(Icons.arrow_drop_down),
                     items: filterList.map((e) {
                       return DropdownMenuItem(
-                          child: Text(e.toString()), value: e.toString());
+                          child: Text(
+                            e.toString(),
+                            style: TextStyle(color: kTxtColor),
+                          ),
+                          value: e.toString());
                     }).toList(),
                     onChanged: (v) {
                       print(v);
@@ -108,11 +119,11 @@ class _PcrTestGraphState extends State<PcrTestGraph> {
                   gridData: FlGridData(show: false),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: getSpot(listPcrTest),
-                      colors: [Colors.green],
-                      isCurved: true,
-                      dotData: FlDotData(show: false),
-                    )
+                        spots: getSpot(listPcrTest),
+                        colors: [kGraphColor],
+                        isCurved: true,
+                        dotData: FlDotData(show: false),
+                        barWidth: 1.5)
                   ],
                   titlesData: FlTitlesData(
                       show: false,

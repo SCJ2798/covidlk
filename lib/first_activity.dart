@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FirstActivity extends StatefulWidget {
   SubData subdata;
   FirstActivity({this.subdata});
@@ -14,6 +15,7 @@ class FirstActivity extends StatefulWidget {
   First_State createState() => First_State(subdata: subdata);
 }
 
+// ignore: camel_case_types
 class First_State extends State<FirstActivity> {
   SubData subdata;
   CvData cvData;
@@ -43,7 +45,7 @@ class First_State extends State<FirstActivity> {
                 borderWidth: 0.0,
                 color: Colors.black,
                 selectedColor: Colors.white,
-                fillColor: Colors.teal.withOpacity(0.9),
+                fillColor: Colors.teal.shade500,
                 borderRadius: BorderRadius.circular(24.0),
                 children: [
                   Container(
@@ -235,7 +237,7 @@ class First_State extends State<FirstActivity> {
                 ),
                 Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
                     child: FlatButton(
                         child: Container(
                             padding: EdgeInsets.all(4.0),
@@ -243,7 +245,6 @@ class First_State extends State<FirstActivity> {
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              print(subdata.listPcr[0].count);
                               return PcrView(subData: subdata);
                             },
                           ));
@@ -274,7 +275,7 @@ class First_State extends State<FirstActivity> {
                     children: [
                       Icon(Icons.local_hospital_outlined),
                       SizedBox(width: 12.0),
-                      Text("Hospital's Situation"),
+                      Text("Hospital Situation"),
                     ],
                   ),
                 ),
@@ -306,7 +307,7 @@ class First_State extends State<FirstActivity> {
                 ),
                 Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
                     child: FlatButton(
                         child: Text('See More'),
                         onPressed: () {
@@ -327,11 +328,6 @@ class First_State extends State<FirstActivity> {
     return subdata.testData.date[val.toInt()];
   }
 
-  //  String getHospitalName(double val) {
-  //    var hosName = ['IDH','']
-  //   return subdata.testData.date[val.toInt()];
-  // }
-
   TextStyle getTextSty(double val) {
     return TextStyle(color: Colors.black, fontSize: 8.0);
   }
@@ -347,24 +343,7 @@ class First_State extends State<FirstActivity> {
   }
 }
 
-class TopCliper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.height * 0.625);
-    path.quadraticBezierTo(size.width * 0.425, size.height * 1,
-        size.width * 0.925, size.height * 0);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper oldClipper) {
-    return false;
-  }
-}
-
+// ignore: must_be_immutable
 class ViewCard extends StatelessWidget {
   IconData icondata;
   String count;

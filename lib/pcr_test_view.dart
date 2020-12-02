@@ -1,9 +1,8 @@
 import 'package:countup/countup.dart';
+import 'package:covid/config/ColorConfig.dart';
 import 'package:covid/model/covid_data.dart';
 import 'package:covid/pcr_test_counts_view.dart';
 import 'package:covid/pcr_test_graph.dart';
-import 'package:covid/service/service.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -45,7 +44,10 @@ class _State extends State<PcrView> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: GestureDetector(
-                      child: Icon(Icons.arrow_back),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: kAppBarIconColor,
+                      ),
                       onTap: () {
                         Navigator.pop(context);
                       },
@@ -57,7 +59,7 @@ class _State extends State<PcrView> {
                       "PCR Test",
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.teal.shade900,
+                        color: kAppBarTxtColor,
                       ),
                     ),
                   ),
@@ -69,7 +71,7 @@ class _State extends State<PcrView> {
                   padding:
                       EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: kBgColor,
                       borderRadius: BorderRadius.circular(8.0),
                       boxShadow: [
                         BoxShadow(
@@ -90,19 +92,24 @@ class _State extends State<PcrView> {
                               height: 24,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.green.withOpacity(0.1)),
+                                  color: topicCardClipColor.withOpacity(0.2)),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.green, width: 1),
                                     shape: BoxShape.circle,
-                                    color: Colors.green.withOpacity(0.0)),
+                                    color: topicCardClipColor),
                               ),
                             ),
                             SizedBox(width: 10),
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('Total'))
+                                child: Text(
+                                  'Total',
+                                  style: TextStyle(
+                                    color: topicCardTxtColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ))
                           ],
                         ),
                         Row(
@@ -114,7 +121,10 @@ class _State extends State<PcrView> {
                                 begin: 0,
                                 end: double.parse(subdata.total_pcr),
                                 duration: Duration(seconds: 3),
-                                style: TextStyle(fontSize: 24.0),
+                                style: TextStyle(
+                                  fontSize: 24.0,
+                                  color: topicCardTxtColor,
+                                ),
                               ),
                             )
                           ],
@@ -125,6 +135,10 @@ class _State extends State<PcrView> {
                   padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
                   margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: AssetImage('assets/img/virus_bg.png'),
+                    ),
                     borderRadius: BorderRadius.circular(12.0),
                     color: Colors.white,
                     boxShadow: [
@@ -141,6 +155,10 @@ class _State extends State<PcrView> {
                       EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                   margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/img/virus_bg.png'),
+                    ),
                     borderRadius: BorderRadius.circular(12.0),
                     color: Colors.white,
                     boxShadow: [

@@ -64,56 +64,30 @@ class SubData {
   factory SubData.fromJson(Map<String, dynamic> _jsn) {
     List<dynamic> barChatR = _jsn['daily_pcr_testing_data'];
     List<dynamic> hospitalData = _jsn['hospital_data'];
+    List<dynamic> pcrTestData = _jsn['daily_pcr_testing_data'];
 
     // set range
-    List<dynamic> hospitalDataRange = hospitalData.getRange(0, 5).toList();
     List<dynamic> barChat =
         barChatR.getRange(barChatR.length - 10, barChatR.length).toList();
 
-    List<BarChartGroupData> bargroup = [];
     List<FlSpot> chartSpot_group = [];
     List<String> dt = [];
     List<BarChartGroupData> hospital_group_data = [];
 
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-    List<dynamic> pcrTestData = _jsn['daily_pcr_testing_data'];
-    List<dynamic> hospitalSituData = _jsn['hospital_data'];
-
     List<PcrTest> listPcrTest = [];
     List<HospitalSituation> listHospitalData = [];
 
+    // Add total pcr
     pcrTestData.asMap().forEach((key, pcr) {
-      // print(pcr);
       listPcrTest.add(PcrTest(id: key, count: pcr['count'], date: pcr['date']));
     });
 
-    hospitalSituData.asMap().forEach((key, hd) {
-      //  print(hd['hospital']['name']);
-      listHospitalData.add(HospitalSituation(
-          id: key.toInt(),
-          name: hd['hospital']['name'],
-          cumTotal: hd['cumulative_total'].toString(),
-          treatTotal: hd['treatment_total'].toString()));
-    });
-
-    // - will be remove
-
-    // print(pcrTestData);
-    // print(hospitalSituData);
-
+    // Add 07 day pcr
     barChat.asMap().forEach((key, value) {
       Map<String, dynamic> valMap = value;
 
       chartSpot_group.add(FlSpot(double.parse(key.toString()),
           double.parse(valMap['count'].toString())));
-
-      bargroup.add(BarChartGroupData(x: int.parse(key.toString()), barRods: [
-        BarChartRodData(
-            y: double.parse(valMap['count'].toString()),
-            colors: [Colors.teal.shade800.withOpacity(0.75)],
-            width: 14.0)
-      ]));
 
       List<String> tDate = valMap['date'].toString().split('-');
       dt.add(tDate[1] + "/" + tDate[2]);
@@ -121,6 +95,12 @@ class SubData {
 
     hospitalData.asMap().forEach((key, value) {
       Map<String, dynamic> valMap = value;
+
+      listHospitalData.add(HospitalSituation(
+          id: key.toInt(),
+          name: value['hospital']['name'],
+          cumTotal: value['cumulative_total'].toString(),
+          treatTotal: value['treatment_total'].toString()));
 
       hospital_group_data
           .add(BarChartGroupData(x: int.parse(key.toString()), barRods: [
@@ -151,7 +131,6 @@ class SubData {
           globalNewDeath: _jsn['global_new_deaths'].toString(),
           total_pcr: _jsn['total_pcr_testing_count'].toString(),
           testData: TestData(
-              barGroupData: bargroup,
               date: dt,
               chartSpot: chartSpot_group,
               totalpcr: _jsn['total_pcr_testing_count'].toString()),
@@ -168,10 +147,9 @@ class SubData {
 class TestData {
   String totalpcr;
   List<String> date;
-  List<BarChartGroupData> barGroupData = [];
   List<FlSpot> chartSpot = [];
 
-  TestData({this.date, this.barGroupData, this.chartSpot, this.totalpcr});
+  TestData({this.date, this.chartSpot, this.totalpcr});
 }
 
 class HospitalData {

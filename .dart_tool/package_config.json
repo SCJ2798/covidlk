@@ -146,6 +146,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "package_info",
+      "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.3+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "path",
       "rootUri": "file:///D:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0-nullsafety.1",
       "packageUri": "lib/",
@@ -260,7 +266,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-11-28T19:21:39.037308Z",
+  "generated": "2020-12-02T08:01:53.760392Z",
   "generator": "pub",
   "generatorVersion": "2.10.2"
 }

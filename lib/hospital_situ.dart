@@ -1,9 +1,11 @@
 import 'package:countup/countup.dart';
+import 'package:covid/config/ColorConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'model/covid_data.dart';
 
+// ignore: must_be_immutable
 class HospitalSitu extends StatefulWidget {
   SubData subData;
   HospitalSitu({this.subData});
@@ -45,17 +47,24 @@ class _HospitalSituState extends State<HospitalSitu> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      child: Icon(Icons.arrow_back),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: kAppBarIconColor,
+                      ),
                       onTap: () {
                         Navigator.pop(context);
                       },
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 16.0),
                     child: Text(
-                      "Hospital's Situation.",
-                      style: TextStyle(fontSize: 20),
+                      "Hospital Situation.",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: kAppBarTxtColor,
+                      ),
                     ),
                   ),
                 ],
@@ -81,6 +90,10 @@ class _HospitalSituState extends State<HospitalSitu> {
         padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
         decoration: BoxDecoration(
             color: Colors.white,
+            image: DecorationImage(
+              fit: BoxFit.contain,
+              image: AssetImage('assets/img/virus_bg.png'),
+            ),
             borderRadius: BorderRadius.circular(8.0),
             boxShadow: [
               BoxShadow(
@@ -101,7 +114,11 @@ class _HospitalSituState extends State<HospitalSitu> {
                           vertical: 2.0,
                           horizontal: 8.0,
                         ),
-                        child: Text("Id", style: TextStyle(fontSize: 8.0)),
+                        child: Text("Id",
+                            style: TextStyle(
+                              fontSize: 8.0,
+                              color: kTxtColor,
+                            )),
                       ),
                       Container(
                         // width: MediaQuery.of(context).size.width,
@@ -110,7 +127,7 @@ class _HospitalSituState extends State<HospitalSitu> {
                           horizontal: 8.0,
                         ),
                         child: Text(hs.id.toString(),
-                            style: TextStyle(fontSize: 16.0)),
+                            style: TextStyle(fontSize: 18.0, color: kTxtColor)),
                       ),
                     ],
                   ),
@@ -123,7 +140,10 @@ class _HospitalSituState extends State<HospitalSitu> {
                           horizontal: 8.0,
                         ),
                         child: Text("Hospital Name",
-                            style: TextStyle(fontSize: 8.0)),
+                            style: TextStyle(
+                              fontSize: 8.0,
+                              color: kTxtColor,
+                            )),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.75,
@@ -135,7 +155,11 @@ class _HospitalSituState extends State<HospitalSitu> {
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
-                                Text(hs.name, style: TextStyle(fontSize: 16.0)),
+                                Text(hs.name,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: kTxtColor,
+                                    )),
                               ],
                             )),
                       ),
@@ -151,63 +175,93 @@ class _HospitalSituState extends State<HospitalSitu> {
                   children: [
                     Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(4.0),
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green.withOpacity(0.25)),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.green),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Countup(
-                            begin: 0,
-                            end: double.parse(hs.cumTotal),
-                            duration: Duration(seconds: 3),
-                            style: TextStyle(fontSize: 24.0),
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(4.0),
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: kClipColor.withOpacity(0.75)),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Countup(
+                                begin: 0,
+                                end: double.parse(hs.cumTotal),
+                                duration: Duration(seconds: 3),
+                                style: TextStyle(
+                                  fontSize: 24.0,
+                                  color: kTxtColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Text(
                             "Cumulative",
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: kTxtColor,
+                            ),
                           ),
                         )
                       ],
                     ),
                     Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(4.0),
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green.withOpacity(0.25)),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.green),
-                          ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(4.0),
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: kClipColor),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Countup(
+                                begin: 0,
+                                end: double.parse(hs.treatTotal),
+                                duration: Duration(seconds: 3),
+                                style: TextStyle(
+                                  fontSize: 24.0,
+                                  color: kTxtColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Countup(
-                            begin: 0,
-                            end: double.parse(hs.treatTotal),
-                            duration: Duration(seconds: 3),
-                            style: TextStyle(fontSize: 24.0),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child:
-                              Text("Treatment", style: TextStyle(fontSize: 12)),
+                          child: Text("Treatment",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: kTxtColor,
+                              )),
                         )
                       ],
                     ),
