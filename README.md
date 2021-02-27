@@ -1,6 +1,6 @@
 # CovidLK
 
-Global & Local covid 19 situation realtime report app
+Global & Local covid 19 realtime situation report app
 
 [ UI & UX Design ](https://www.behance.net/gallery/111026807/CovidLK)
 
