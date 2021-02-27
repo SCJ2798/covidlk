@@ -2,7 +2,7 @@
 
 Global & Local covid 19 situation realtime report app
 
-[ UI & UX DESIGN ](https://www.behance.net/gallery/111026807/CovidLK)
+[ UI & UX Design ](https://www.behance.net/gallery/111026807/CovidLK)
 
 [Getting Started](https://flutter.dev/docs/get-started/install)
 
