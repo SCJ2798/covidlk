@@ -1,6 +1,9 @@
-# covidLK
+# CovidLK
 
-A new Flutter project.
+Global & Local covid 19 situation realtime report app
+
+[ UI & UX DESIGN ](https://www.behance.net/gallery/111026807/CovidLK)
+
 
 ## Getting Started
 
